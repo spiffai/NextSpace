@@ -140,20 +140,118 @@
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //     ~:: Anatomy of Arrow Function ::~
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-function square(input) {
-    let squareIt = (input) => input * input;
-    let result = squareIt(2);
-    console.log(`Square Result: ${result}`);
+// function square(input: number){
+//     let squareIt = (input: number) => input * input;
+//     let result = squareIt(2);
+//     console.log(`Square Result: ${result}`)
+// }
+// function adder(a: number, b: number){
+//     let adder = (a: number, b: number) => a + b;
+//     let result = adder(a, b);
+//     console.log(`Adder Result: ${result}`)
+// }
+// let greeting = () => console.log('Arrow Functions Are Fun!');
+// greeting();
+// square(4);
+// adder(2, 5);
+// let scores: number[] = [70, 125, 85, 110];
+// let highScores: number[];
+// highScores = scores.filter((element, index, array) => {
+//     if (element > 100){
+//         return true;
+//     }
+// })
+// const  LogMessage = (message: string) => console.log(message);
+// LogMessage('test arrow function');
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+//     ~:: Function Overloads ::~
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// functions with the same name but different signatures
+// function  GetPropTypes(string: string): string[];
+// function GetPropTypes(boolean: boolean): string[];
+// function GetPropTypes(propType: any): string[] {
+//     let response = ['Hello', 'World'];
+//     if(typeof propType == 'string'){
+//         console.log('Received Type Expected: String');
+//         console.log(`Prop Type: ${typeof propType}`);
+//     } else if(typeof propType == 'boolean'){
+//         console.log('Received Type Expected: Boolean');
+//         console.log(`Prop Type: ${typeof propType}`);
+//     }
+//     return response;
+// }
+// GetPropTypes('string test');
+// GetPropTypes(false);
+function GetAllMovies() {
+    return [
+        { title: 'Super Duper', director: 'Jojo Baggins', yearReleased: 1983, streaming: true },
+        { title: 'Java Bears Rotate Mars', director: 'Terrance and Phillip', yearReleased: 1990, streaming: true },
+        { title: 'Scream Dream Racing Machine', director: 'Blue Jean Baby', yearReleased: 1958, streaming: false },
+        { title: 'Georgia Apples', director: 'Jojo Baggins', yearReleased: 1986, streaming: false },
+        { title: 'Jesus Christ Where Are You', director: 'Jupiter Promise', yearReleased: 2010, streaming: true },
+        { title: 'Humans Are The Worst', director: 'Banjo Kazooie', yearReleased: 1998, streaming: true },
+        { title: 'Crust Critters', director: 'Jojo Baggins', yearReleased: 1982, streaming: false },
+        { title: 'Eeps McCreeps', director: 'Julian Gables', yearReleased: 1990, streaming: true },
+        { title: 'Dimples', director: 'Jojo Baggins', yearReleased: 1992, streaming: false },
+    ];
 }
-function adder(a, b) {
-    let adder = (a, b) => a + b;
-    let result = adder(a, b);
-    console.log(`Adder Result: ${result}`);
+function GetReview(title) {
+    if (title === 'Eeps McCreeps') {
+        return 'An Instant Classic!';
+    }
+    else {
+        return Math.floor(Math.random() * 10);
+    }
 }
-let greeting = () => console.log('Arrow Functions Are Fun!');
-greeting();
-square(4);
-adder(2, 5);
+function GetTitles(director, streaming) {
+    const allMovies = GetAllMovies();
+    const searchResults = [];
+    if (streaming !== undefined) {
+        for (let movie of allMovies) {
+            if (movie.director === director && movie.streaming === streaming) {
+                searchResults.push(movie.title);
+            }
+        }
+    }
+    else {
+        for (let movie of allMovies) {
+            if (movie.director === director) {
+                searchResults.push(movie.title);
+            }
+        }
+    }
+    return searchResults;
+}
+let movies = GetTitles('Jojo Baggins', false);
+movies.forEach(title => console.log(`Title: ${title}`));
+// function types example below
+function CreateMovieID(name, id) {
+    return name + id;
+}
+let firstID = CreateMovieID('jedi', 1);
+console.log(firstID);
+let x;
+x = 5;
+let IdGenerator;
+IdGenerator = CreateMovieID;
+let secondID = IdGenerator('jedi', 2);
+console.log(secondID);
+IdGenerator = (name, id) => name + id;
+let thirdID = IdGenerator('jedi', 3);
+console.log(thirdID);
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+//     ~:: Function Types ::~
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// Function types are set by a combination of the parameters of: parameter types and return type
+// Variables may be declared with function types
+// Function assigned must have the saem signature as the variable type
+// function ReleaseMessage(year: number): string {
+//     console.log(`Year Released: ${year}`);
+//     return 'Year released:' + year;
+// }
+// let releaseFunc: (someYear: number) => string; //typed definition for a function
+// releaseFunc = ReleaseMessage;
+// let message: string = releaseFunc(2024);
 // interface Movie {
 //     title: string;
 //     score: number;
